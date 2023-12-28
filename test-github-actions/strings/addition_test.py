@@ -8,7 +8,7 @@ class TestAddStrings(unittest.TestCase):
 
     def test_add_empty_string(self):
         with self.assertRaises(ValueError):
-            add_strings('', 'Test')
+            add_strings('', 'Test again')
 
 
 if __name__ == '__main__':
