@@ -29,7 +29,7 @@ jobs:
         python -m pip install --upgrade pip
         # Install development dependencies if they exist.
         if grep -q "dev = [" pyproject.toml; then
-            pip install -e .[dev]
+            pip install -e '.[dev]'
         else
             pip install -e .
         fi
