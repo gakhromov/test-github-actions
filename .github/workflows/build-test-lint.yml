@@ -44,12 +44,9 @@ jobs:
         pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
         # Parse pylint exit code
         exit_code=$?
-        
         parse_pylint() {
-          local exit_code=$1    
-          
+          local exit_code=$1
           binary_representation=$(echo "obase=2; $exit_code" | bc)
-          
           # Check if the length of the binary representation is at least 2 characters
           if [ ${#binary_representation} -ge 2 ]; then
             first_two_bits=${binary_representation: -2:2}
@@ -58,7 +55,6 @@ jobs:
               return $exit_code
             fi
           fi
-
           return 0
         }
         parse_pylint $exit_code
