@@ -1,7 +1,8 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Build, test and lint by ${{ github.actor }} on branch ${{ github.base_ref }}
+name: build-test-lint
+run-name: Build, test and lint by ${{ github.actor }} on branch ${{ github.base_ref }}
 
 env:
   GH_WORKFLOW_TARGET: test-github-actions
