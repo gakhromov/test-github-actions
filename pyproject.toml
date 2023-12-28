@@ -1,0 +1,10 @@
+[project]
+name = "test-github-actions"
+description = "A test Python repo to test the functionality of Github Actions."
+version = "1.0.0"
+authors = [
+    { name = "Grigory Khromov", email = "fake@email.com" }
+]
+dependencies = [
+    'tabulate'
+]
