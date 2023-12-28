@@ -34,27 +34,11 @@ jobs:
             pip install -e .
         fi
         # Install pylint with Google style guide.
-        pip install pylint
+        pip install pylint pylint-exit
         curl https://google.github.io/styleguide/pylintrc > pylintrc
     - name: Test with unittest
       run: |
         python -m unittest discover -s $GH_WORKFLOW_TARGET -p "*_test.py"
     - name: Lint with pylint
       run: |
-        lint_and_check_exit_code() {
-          pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
-          local exit_code=$?
-          # Parse pylint exit code
-          binary_representation=$(echo "obase=2; $exit_code" | bc)
-          # Check if the length of the binary representation is at least 2 characters
-          if [ ${#binary_representation} -ge 2 ]; then
-            first_two_bits=${binary_representation: -2:2}
-            # Check for fatal or error messages
-            if [ "$first_two_bits" != "00" ]; the
-              return $exit_code
-            fi
-          fi
-          return 0
-        }
-        lint_and_check_exit_code
-        
+        pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET || pylint-exit --error-fail $?
