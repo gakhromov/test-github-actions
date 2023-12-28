@@ -4,7 +4,7 @@
 name: Build, test and lint by ${{ github.actor }} on branch ${{ github.base_ref }}
 
 env:
-  PROJECT_FOLDER: test-github-actions
+  GH_WORKFLOW_TARGET: test-github-actions
 
 on:
   pull_request:
@@ -35,9 +35,11 @@ jobs:
         # Install pylint with Google style guide.
         pip install pylint
         curl https://google.github.io/styleguide/pylintrc > pylintrc
-    - name: Lint with pylint
-      run: |
-        pylint --max-line-length=80 --indent-string='    ' $PROJECT_FOLDER
     - name: Test with unittest
       run: |
-        python -m unittest discover -s $PROJECT_FOLDER -p "*_test.py"
+        python -m unittest discover -s $GH_WORKFLOW_TARGET -p "*_test.py"
+    - name: Lint with pylint
+      run: |
+        pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
+        # Parse pylint exit code
+        
