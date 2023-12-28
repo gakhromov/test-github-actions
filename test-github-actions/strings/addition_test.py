@@ -6,7 +6,7 @@ class TestAddStrings(unittest.TestCase):
     def test_add_strings(self):
         self.assertEqual(add_strings('Hello', ' World'), 'Hello World')
 
-    def test_empty_string(self):
+    def test_add_empty_string(self):
         with self.assertRaises(ValueError):
             add_strings('', 'World')
 
