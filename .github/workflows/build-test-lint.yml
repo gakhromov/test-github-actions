@@ -43,10 +43,14 @@ jobs:
         pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
         # Parse pylint exit code
         exit_code=$?
-        emit_code=0
-        # Check for specific messages
-        if [[ $((exit_code & 1)) -ne 0  ||   $((exit_code & 2)) -ne 0 ]]; then
+        parse_pylint() {
+          local exit_code=$1    
+          local emit_code=0
+          # Check for specific messages
+          if [[ $((exit_code & 1)) -ne 0  ||   $((exit_code & 2)) -ne 0 ]]; then
             emit_code=$exit_code
-        fi
-        exit $emit_code
+          fi
+          return $emit_code
+        }
+        parse_pylint $exit_code
         
