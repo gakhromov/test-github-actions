@@ -8,3 +8,8 @@ authors = [
 dependencies = [
     'tabulate'
 ]
+
+[project.optional-dependencies]
+dev = [
+    'absl-py'
+]
