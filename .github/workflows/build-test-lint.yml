@@ -41,11 +41,10 @@ jobs:
         python -m unittest discover -s $GH_WORKFLOW_TARGET -p "*_test.py"
     - name: Lint with pylint
       run: |
-        pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
-        # Parse pylint exit code
-        exit_code=$?
-        parse_pylint() {
-          local exit_code=$1
+        lint_and_check_exit_code() {
+          pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
+          local exit_code=$?
+          # Parse pylint exit code
           binary_representation=$(echo "obase=2; $exit_code" | bc)
           # Check if the length of the binary representation is at least 2 characters
           if [ ${#binary_representation} -ge 2 ]; then
@@ -57,5 +56,5 @@ jobs:
           fi
           return 0
         }
-        parse_pylint $exit_code
+        lint_and_check_exit_code
         
