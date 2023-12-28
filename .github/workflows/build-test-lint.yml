@@ -44,14 +44,22 @@ jobs:
         pylint --max-line-length=80 --indent-string='    ' $GH_WORKFLOW_TARGET
         # Parse pylint exit code
         exit_code=$?
+        
         parse_pylint() {
           local exit_code=$1    
-          local emit_code=0
-          # Check for specific messages
-          if [[ $((exit_code & 1)) -ne 0  ||   $((exit_code & 2)) -ne 0 ]]; then
-            emit_code=$exit_code
+          
+          binary_representation=$(echo "obase=2; $exit_code" | bc)
+          
+          # Check if the length of the binary representation is at least 2 characters
+          if [ ${#binary_representation} -ge 2 ]; then
+            first_two_bits=${binary_representation: -2:2}
+            # Check for fatal or error messages
+            if [ "$first_two_bits" != "00" ]; the
+              return $exit_code
+            fi
           fi
-          return $emit_code
+
+          return 0
         }
         parse_pylint $exit_code
         
