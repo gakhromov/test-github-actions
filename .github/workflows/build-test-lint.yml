@@ -21,7 +21,8 @@ permissions:
 jobs:
   build-test-lint:
     runs-on: ubuntu-latest
-
+    # Do not run on draft PRs.
+    if: ${{ !github.event.pull_request.draft }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3
